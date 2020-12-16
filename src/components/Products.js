@@ -2,7 +2,6 @@ import React from 'react';
 
 class Products extends React.Component{
     render(){
-        console.log(this.props)
         const display_products = this.props.data.map(product=>{
             return (
                 <div key={product._id} className="Products" >
