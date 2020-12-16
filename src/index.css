@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+html{
+    box-sizing:border-box;
+}
+body{
+    height:100%;
+    margin:0;
+    font-family: 'Montserrat', sans-serif;
+}
+
+img{
+    max-height:400px;
+}
+
+.Product-container{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.Products{
+    max-width:30%;
+    margin:20px;
+    max-width:314px;
+    text-align: justify;
+}
+
+.Buying{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}

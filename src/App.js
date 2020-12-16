@@ -1,12 +1,24 @@
-
+import React from 'react';
 import './App.css';
+import data from './data.json';
+import Products from './components/Products'
 
-function App() {
-  return (
-    <div className="App">
-      <h1>E commerce</h1>
-    </div>
-  );
+class App extends React.Component{
+  constructor(){
+    super();
+    this.state={
+      products: data.products,
+      size:"",
+      sort:""
+    }
+  }
+  render(){
+    return (
+      <div className="App">
+        <Products data={this.state.products} />
+      </div>
+    );
+  }
 }
 
 export default App;
