@@ -11,7 +11,9 @@ class App extends React.Component{
     this.state={
       original: data.products,
       products_to_display: data.products,
-      cartItems:[],
+      cartItems:JSON.parse(localStorage.getItem('cartItems'))!=null
+              ?JSON.parse(localStorage.getItem('cartItems'))
+              :[],
       size:"",
       sort:""
     }
@@ -30,9 +32,12 @@ class App extends React.Component{
       console.log('no match')
       cart_items.push({...e, count: 1})
     }
+    
     this.setState({
       cartItems: cart_items
     })
+
+    localStorage.setItem('cartItems', JSON.stringify(cart_items))
   }
   sortProducts=(e)=>{
     let x = this.state.products_to_display.sort((a,b)=>{
@@ -70,6 +75,7 @@ class App extends React.Component{
     }
   }
   render(){
+
     return (
       <div className="App">
         <Filter size={this.state.size} sort={this.state.sort} sortProducts={this.sortProducts} filterProducts={this.filterProducts} />

@@ -38,3 +38,7 @@ img{
 .product_cart{
     display:flex;
 }
+
+.cart{
+    min-width:250px;
+}
