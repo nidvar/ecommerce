@@ -3,6 +3,7 @@ import './App.css';
 import data from './data.json';
 import Products from './components/Products';
 import Filter from './components/Filter';
+import Cart from './components/Cart';
 
 class App extends React.Component{
   constructor(){
@@ -10,35 +11,49 @@ class App extends React.Component{
     this.state={
       original: data.products,
       products_to_display: data.products,
+      cartItems:[],
       size:"",
       sort:""
     }
   }
+  addToCart = (e)=>{
+    const cart_items = this.state.cartItems;
+    let already_picked = false;
+    cart_items.forEach(items=>{
+      if(items._id==e._id){
+        console.log('match');
+        items.count++
+        already_picked = true
+      }
+    })
+    if(already_picked == false){
+      console.log('no match')
+      cart_items.push({...e, count: 1})
+    }
+    this.setState({
+      cartItems: cart_items
+    })
+  }
   sortProducts=(e)=>{
-
-
-            let x = this.state.products_to_display.sort((a,b)=>{
-              if(e.target.value === 'lowest'){
-                if(a.price < b.price){
-                  return -1
-                }
-              }
-              if(e.target.value === 'highest'){
-                if(a.price > b.price){
-                  return -1
-                }
-              }
-              if(a._id > b._id){
-                return -1
-              }
-            })
-
-            console.log(x)
-
-            this.setState({
-              products_to_display:x,
-              sort:e.target.value
-            })
+    let x = this.state.products_to_display.sort((a,b)=>{
+      if(e.target.value === 'lowest'){
+        if(a.price < b.price){
+          return -1
+        }
+      }
+      if(e.target.value === 'highest'){
+        if(a.price > b.price){
+          return -1
+        }
+      }
+      if(a._id > b._id){
+        return -1
+      }
+    })
+    this.setState({
+      products_to_display:x,
+      sort:e.target.value
+    })
   }
   filterProducts=(e)=>{
     if(e.target.value === ''){
@@ -58,7 +73,10 @@ class App extends React.Component{
     return (
       <div className="App">
         <Filter size={this.state.size} sort={this.state.sort} sortProducts={this.sortProducts} filterProducts={this.filterProducts} />
-        <Products data={this.state.products_to_display} />
+        <div className="product_cart">
+          <Products data={this.state.products_to_display} add_to_cart={this.addToCart}/>
+          <Cart data={this.state.cartItems} />
+        </div>
       </div>
     );
   }
