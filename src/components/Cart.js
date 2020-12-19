@@ -10,7 +10,7 @@ class Cart extends React.Component{
                     <p>{item.title}</p>
                     <img src={item.image} className="cartimg"/>
                     <p>{item.count}x ${item.price}</p>
-                    <button>REMOVE</button>
+                    <button onClick={()=>{this.props.removeItems(item)}} >REMOVE</button>
                 </div>
             )
         })

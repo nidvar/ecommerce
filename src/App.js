@@ -18,6 +18,27 @@ class App extends React.Component{
       sort:""
     }
   }
+  removeItems=(e)=>{
+    const x = this.state.cartItems
+    const y = x.map(a=>{
+      if(a._id == e._id){
+        if(e.count >=1){
+          e.count--
+        }
+      }
+      return a
+    })
+    const new_array = y.filter(a=>{
+      if(a.count!=0){
+        return true
+      }
+    })
+    this.setState({
+      cartItems: new_array
+    })
+    localStorage.setItem('cartItems', JSON.stringify(new_array))
+  }
+  
   addToCart = (e)=>{
     const cart_items = this.state.cartItems;
     let already_picked = false;
@@ -81,7 +102,7 @@ class App extends React.Component{
         <Filter size={this.state.size} sort={this.state.sort} sortProducts={this.sortProducts} filterProducts={this.filterProducts} />
         <div className="product_cart">
           <Products data={this.state.products_to_display} add_to_cart={this.addToCart}/>
-          <Cart data={this.state.cartItems} />
+          <Cart data={this.state.cartItems} removeItems={this.removeItems} />
         </div>
       </div>
     );
