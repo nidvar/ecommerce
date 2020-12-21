@@ -4,10 +4,27 @@ class Cart extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            display_checkout: false
+            display_checkout: false,
+            email:null,
+            name:null,
+            address:null
         }
     }
-    total = ()=>{
+    handleChange=(e)=>{
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+    handleSubmit = (e)=>{
+        e.preventDefault()
+        const customer_order = {
+            name: this.state.name,
+            email: this.state.email,
+            address: this.state.address
+        }
+        this.props.grab_form_data(customer_order)
+    }
+    total_value = ()=>{
         let total_value = 0;
         this.props.data.forEach(a=>{
             let x = a.price*a.count.toFixed(2)
@@ -16,30 +33,29 @@ class Cart extends React.Component{
         return(
             <div className='total_value'>
                 <label>{total_value.toFixed(2)} </label>
-                <button onClick={()=>{this.setState({display_checkout:true})}} >CHECKOUT</button>
+                <button onClick={()=>{this.setState({display_checkout:true})}}>PROCEED</button>
             </div>
         )
     }
     checkout = ()=>{
         return(
             <div className='Form_div'>
-                <form className='My_form'>
+                <form className='My_form' onSubmit={this.handleSubmit}>
                     <p><label>Email </label></p>
-                    <p><input type='Email' name='Email' onChange={(e)=>{this.props.grab_form_data(e.target.value)}} /></p>
+                    <p><input type='Email' name='email' onChange={this.handleChange}/></p>
                     
                     <p><label>Name </label></p>
-                    <p><input type='text' name='Name' onChange={(e)=>{this.props.grab_form_data(e.target.value)}} /></p>
+                    <p><input type='text' name='name' onChange={this.handleChange}/></p>
                     
                     <p><label>Address </label></p>
-                    <p><input type='text' name='Address' onChange={(e)=>{this.props.grab_form_data(e.target.value)}} /></p>
-                    <button>PROCEED</button>
+                    <p><input type='text' name='address' onChange={this.handleChange}/></p>
+
+                    <button type='submit'>CHECKOUT</button>
                 </form>
             </div>
         )
     }
     render(){
-        const x = this.props.data
-        console.log(x)
         const display = this.props.data.map(item=>{
             return (
                 <div key={Math.random()} className="cart">
@@ -54,7 +70,7 @@ class Cart extends React.Component{
             <div>
                 <h1>Cart</h1>
                 {display}
-                {this.total()}
+                {this.total_value()}
                 {this.state.display_checkout==true?this.checkout():null}
             </div>
         )

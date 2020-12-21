@@ -17,7 +17,7 @@ class App extends React.Component{
       sort:""
     }
   }
-  grab_form_data = (e)=>{
+  grab_customer_order = (e)=>{
     console.log(e)
   }
   removeItems=(e)=>{
@@ -104,7 +104,7 @@ class App extends React.Component{
         <Filter size={this.state.size} sort={this.state.sort} sortProducts={this.sortProducts} filterProducts={this.filterProducts} />
         <div className="product_cart">
           <Products data={this.state.products_to_display} add_to_cart={this.addToCart}/>
-          <Cart data={this.state.cartItems} removeItems={this.removeItems} grab_form_data={this.grab_form_data}/>
+          <Cart data={this.state.cartItems} removeItems={this.removeItems} grab_form_data={this.grab_customer_order}/>
         </div>
       </div>
     );
