@@ -42,3 +42,17 @@ img{
 .cart{
     min-width:250px;
 }
+
+.Form_div{
+    margin-top:20px;
+}
+
+.Form_div p{
+    margin:5px 0px 5px 0;
+}
+
+.total_value{
+    border:1px solid black;
+    background-color:wheat;
+    margin:10px 0 10px 0;
+}

@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import data from './data.json';
 import Products from './components/Products';
 import Filter from './components/Filter';
@@ -17,6 +16,9 @@ class App extends React.Component{
       size:"",
       sort:""
     }
+  }
+  grab_form_data = (e)=>{
+    console.log(e)
   }
   removeItems=(e)=>{
     const x = this.state.cartItems
@@ -102,7 +104,7 @@ class App extends React.Component{
         <Filter size={this.state.size} sort={this.state.sort} sortProducts={this.sortProducts} filterProducts={this.filterProducts} />
         <div className="product_cart">
           <Products data={this.state.products_to_display} add_to_cart={this.addToCart}/>
-          <Cart data={this.state.cartItems} removeItems={this.removeItems} />
+          <Cart data={this.state.cartItems} removeItems={this.removeItems} grab_form_data={this.grab_form_data}/>
         </div>
       </div>
     );
